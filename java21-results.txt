@@ -1,0 +1,2 @@
+Benchmark                                     Mode  Cnt        Score       Error  Units
+RegularSolving2ndDegreeEquations.testMethod  thrpt   25  5665368,368 ± 46601,990  ops/s
