@@ -71,11 +71,53 @@ public class Solver2ndDegreeEquationVectorTest {
       }
     }
   }
+  @Test
+  @DisplayName("Testing 2 roots in the corrective loop")
+  public void test4() {
+    // Given
+    int nbElementsToHaveInList = 512 / (Double.BYTES * 8) + 1;
+    ArrayList<Equation> equations = new ArrayList<>(nbElementsToHaveInList);
+    equations.addAll(getEquations().subList(0, nbElementsToHaveInList - 1));
+    equations.add(new Equation(2d, 5d, 2d));
+    Assertions.assertThat(equations).hasSize(nbElementsToHaveInList);
+    double d = 9d;
+    double r1 = -2d;
+    double r2 = -0.5d;
+    // When
+    EquationSolution lastEquationSolution = new Solver2ndDegreeEquationVector().solve(equations)
+                                                               .getLast();
+    // Then
+    Assertions.assertThat(lastEquationSolution.discriminent()).isEqualTo(d);
+    Assertions.assertThat(lastEquationSolution.solutions()).hasSize(2);
+    Assertions.assertThat(lastEquationSolution.solutions().get(0)).isEqualTo(r1);
+    Assertions.assertThat(lastEquationSolution.solutions().get(1)).isEqualTo(r2);
+  }
+  @Test
+  @DisplayName("Testing 2 roots in the corrective loop with (a+c)!=(ac)")
+  public void test5() {
+    // Given
+    int nbElementsToHaveInList = 512 / (Double.BYTES * 8) + 1;
+    ArrayList<Equation> equations = new ArrayList<>(nbElementsToHaveInList);
+    equations.addAll(getEquations().subList(0, nbElementsToHaveInList - 1));
+    equations.add(new Equation(4d/3d, 5d, 3d));
+    Assertions.assertThat(equations).hasSize(nbElementsToHaveInList);
+    double d = 9d;
+    double r1 = -3d;
+    double r2 = -0.75d;
+    // When
+    EquationSolution lastEquationSolution = new Solver2ndDegreeEquationVector().solve(equations)
+                                                               .getLast();
+    // Then
+    Assertions.assertThat(lastEquationSolution.discriminent()).isEqualTo(d);
+    Assertions.assertThat(lastEquationSolution.solutions()).hasSize(2);
+    Assertions.assertThat(lastEquationSolution.solutions().get(0)).isEqualTo(r1);
+    Assertions.assertThat(lastEquationSolution.solutions().get(1)).isEqualTo(r2);
+  }
 
   private static List<Equation> getEquations() {
     List<Equation> equations = new ArrayList<>(20);
     Random random = new Random(123456789l);
-    equations.add(new Equation(1d, 4d, 4d)); // this one, discriminent is 0. Must be frist element
+    equations.add(new Equation(1d, 4d, 4d)); // this one, discriminent is 0. Must be first element
     equations.add(new Equation(random.nextDouble(-1000, 1000), random.nextDouble(-1000, 1000), random.nextDouble(-1000, 1000)));
     equations.add(new Equation(random.nextDouble(-1000, 1000), random.nextDouble(-1000, 1000), random.nextDouble(-1000, 1000)));
     equations.add(new Equation(random.nextDouble(-1000, 1000), random.nextDouble(-1000, 1000), random.nextDouble(-1000, 1000)));

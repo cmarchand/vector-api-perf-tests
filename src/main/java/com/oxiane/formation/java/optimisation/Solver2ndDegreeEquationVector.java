@@ -70,8 +70,8 @@ public class Solver2ndDegreeEquationVector implements Solver2ndDegreeEquation {
       } else if(discriminants[index2] > 0) {
         // cas des discriminants > 0
         double sqrt = Math.sqrt(discriminants[index2]);
-        roots1[index2] = (- bs[index2] - sqrt)/(2 + as[index2]);
-        roots2[index2] = (- bs[index2] + sqrt)/(2 + as[index2]);
+        roots1[index2] = (- bs[index2] - sqrt)/(2 * as[index2]);
+        roots2[index2] = (- bs[index2] + sqrt)/(2 * as[index2]);
       }
     }
     for (int i = 0; i < discriminants.length; i++) {

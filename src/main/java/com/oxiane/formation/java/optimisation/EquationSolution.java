@@ -33,4 +33,17 @@ public class EquationSolution {
   public void addSolution(double d) {
     solutions.add(d);
   }
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append(equation().a()).append("x^2 + ");
+    builder.append(equation().b()).append("x + ");
+    builder.append(equation().c()).append(" = 0\n");
+    builder.append("Δ = ").append(discriminent()).append("\n");
+    for (int i = 0; i < solutions().size(); i++) {
+      builder.append("R").append(i).append(" - ").append(solutions().get(i)).append("\n");
+    }
+    return builder.toString();
+  }
 }
