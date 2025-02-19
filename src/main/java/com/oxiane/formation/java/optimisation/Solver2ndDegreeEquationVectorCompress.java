@@ -19,7 +19,7 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
       return new Solver2ndDegreeEquationRegular().solve(equations);
     Map<Equation, EquationSolution> solutions = prepareSolutions(equations);
     double[][] equationsWithDiscriminants = removeEquationsWithoutRealSolutions(equations, species, solutions);
-    extractSolutions(equationsWithDiscriminants, species, solutions);
+    calculateRoots(equationsWithDiscriminants, species, solutions);
     return generateListInOriginalOrder(equations, solutions);
   }
 
@@ -31,13 +31,13 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
     return solutions;
   }
 
-  private double[][] removeEquationsWithoutRealSolutions(List<Equation> equations, VectorSpecies<Double> species, Map<Equation, EquationSolution> solutions) {
+  private double[][] removeEquationsWithoutRealSolutions(List<Equation> equations, VectorSpecies<Double> species,
+                                                         Map<Equation, EquationSolution> solutions) {
     EquationArrays arrays = equationsIntoArrays(equations);
     double[] as = arrays.as();
     double[] bs = arrays.bs();
     double[] cs = arrays.cs();
     double[] discriminants = new double[cs.length];
-    // calculate discriminant and filter equations that have solution(s)
     int index = 0;
     int filteredCount = 0;
     double[] compressedAs = new double[cs.length];
@@ -62,7 +62,7 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
       C.compress(positiveOrNullDiscriminants)
        .intoArray(compressedCs, filteredCount);
       D.compress(positiveOrNullDiscriminants)
-                  .intoArray(compressedDs, filteredCount);
+       .intoArray(compressedDs, filteredCount);
       filteredCount += positiveOrNullDiscriminants.trueCount();
     }
     for (int index2 = index; index2 < as.length; index2++) {
@@ -76,9 +76,8 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
       }
       discriminants[index2] = discriminant;
     }
-    // on affecte les discriminants dans les solutions pour les discriminants négatifs
     for (int i = 0; i < as.length; i++) {
-      if(discriminants[i] < 0) {
+      if (discriminants[i] < 0) {
         solutions
             .get(new Equation(as[i], bs[i], cs[i]))
             .setDiscriminant(discriminants[i]);
@@ -92,13 +91,14 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
     };
   }
 
-  private static void extractSolutions(double[][] equationsWithDiscriminants, VectorSpecies<Double> species,
-                                       Map<Equation, EquationSolution> solutions) {
+  private static void calculateRoots(
+      double[][] equationsWithDiscriminants,
+      VectorSpecies<Double> species,
+      Map<Equation, EquationSolution> solutions) {
     double[] as = equationsWithDiscriminants[0];
     double[] bs = equationsWithDiscriminants[1];
     double[] cs = equationsWithDiscriminants[2];
     double[] ds = equationsWithDiscriminants[3];
-    // deuxieme partie, calcul des racines
     double[] roots1 = new double[as.length];
     double[] roots2 = new double[as.length];
     int index = 0;
@@ -124,7 +124,6 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
       roots1[index2] = (-bs[index2] - sqrt) / denominator;
       roots2[index2] = (-bs[index2] + sqrt) / denominator;
     }
-    // on remet les solutions
     for (int i = 0; i < as.length; i++) {
       Equation key = new Equation(as[i], bs[i], cs[i]);
       EquationSolution equationSolution = solutions.get(key);
@@ -134,9 +133,9 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
     }
   }
 
-  private static List<EquationSolution> generateListInOriginalOrder(List<Equation> equations, Map<Equation,
-      EquationSolution> solutions) {
-    // pour remettre les choses dans le bon ordre
+  private static List<EquationSolution> generateListInOriginalOrder(
+      List<Equation> equations,
+      Map<Equation, EquationSolution> solutions) {
     List<EquationSolution> ret = new ArrayList<>(equations.size());
     for (Equation equation : equations) {
       ret.add(solutions.get(equation));
