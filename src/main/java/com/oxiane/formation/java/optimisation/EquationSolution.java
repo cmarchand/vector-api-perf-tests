@@ -44,7 +44,7 @@ public class EquationSolution {
       builder
           .append("R")
           .append(i++)
-          .append(" - ")
+          .append(": ")
           .append(solution)
           .append("\n");
     }

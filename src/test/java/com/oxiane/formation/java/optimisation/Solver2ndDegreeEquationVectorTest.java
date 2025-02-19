@@ -1,6 +1,5 @@
 package com.oxiane.formation.java.optimisation;
 
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ import java.util.Random;
 public class Solver2ndDegreeEquationVectorTest {
 
   @Test
-  @DisplayName("Check that discriments are correctly calculated")
+  @DisplayName("Check that discrimants are correctly calculated")
   public void test1() {
     // Given
     List<Equation> equations = getEquations();
@@ -31,7 +30,7 @@ public class Solver2ndDegreeEquationVectorTest {
   }
 
   @Test
-  @DisplayName("Checks roots for discriminent 0")
+  @DisplayName("Checks roots for discriminant 0")
   public void test2() {
     // Given
     List<Equation> equations = getEquations();
@@ -48,7 +47,7 @@ public class Solver2ndDegreeEquationVectorTest {
   }
 
   @Test
-  @DisplayName("Check that discriments are correctly calculated")
+  @DisplayName("Check that discrimants are correctly calculated")
   public void test3() {
     // Given
     List<Equation> equations = getEquations();

@@ -32,10 +32,7 @@
 package com.oxiane.formation.java.optimisation.benches;
 
 import com.oxiane.formation.java.optimisation.*;
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Param;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +47,7 @@ public class Solving2ndDegreeEquations {
     private int size;
 
     final List<Equation> equations;
+
     public InputData() {
       equations = new ArrayList<>(size);
       Random random = new Random(123456789l);
@@ -62,26 +60,30 @@ public class Solving2ndDegreeEquations {
                            random.nextDouble(-1000, 1000)))
                );
     }
-    List<Equation> equations() { return equations; }
+    List<Equation> equations() {
+      return equations;
+    }
   }
 
-    @Benchmark
-    public List<EquationSolution> regular(InputData data) {
-      return
-          new Solver2ndDegreeEquationRegular()
-              .solve(data.equations());
-    }
-    @Benchmark
-    public List<EquationSolution> vector(InputData data) {
-      return
-          new Solver2ndDegreeEquationVector()
-              .solve(data.equations());
-    }
-    @Benchmark
-    public List<EquationSolution> vectorCompress(InputData data) {
-      return
-          new Solver2ndDegreeEquationVectorCompress()
-              .solve(data.equations());
-    }
+  @Benchmark
+  public List<EquationSolution> regular(InputData data) {
+    return
+        new Solver2ndDegreeEquationRegular()
+            .solve(data.equations());
+  }
+
+  @Benchmark
+  public List<EquationSolution> vector(InputData data) {
+    return
+        new Solver2ndDegreeEquationVector()
+            .solve(data.equations());
+  }
+
+  @Benchmark
+  public List<EquationSolution> vectorCompress(InputData data) {
+    return
+        new Solver2ndDegreeEquationVectorCompress()
+            .solve(data.equations());
+  }
 
 }
