@@ -106,7 +106,6 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
     for (; index < species.loopBound(as.length); index += species.length()) {
       DoubleVector A = DoubleVector.fromArray(species, as, index);
       DoubleVector B = DoubleVector.fromArray(species, bs, index);
-      DoubleVector C = DoubleVector.fromArray(species, cs, index);
       DoubleVector D = DoubleVector.fromArray(species, ds, index);
       DoubleVector sqrt = D.lanewise(VectorOperators.SQRT);
       B.mul(-1d)
@@ -122,8 +121,9 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
     }
     for (int index2 = index; index2 < as.length; index2++) {
       double sqrt = Math.sqrt(ds[index2]);
-      roots1[index2] = (-bs[index2] - sqrt) / (2 * as[index2]);
-      roots2[index2] = (-bs[index2] + sqrt) / (2 * as[index2]);
+      double denominator = 2 * as[index2];
+      roots1[index2] = (-bs[index2] - sqrt) / denominator;
+      roots2[index2] = (-bs[index2] + sqrt) / denominator;
     }
     // on remet les solutions
     for (int i = 0; i < as.length; i++) {
