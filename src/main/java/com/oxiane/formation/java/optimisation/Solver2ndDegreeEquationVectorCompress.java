@@ -82,7 +82,7 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
       if(discriminants[i] < 0) {
         solutions
             .get(new Equation(as[i], bs[i], cs[i]))
-            .setDiscriminent(discriminants[i]);
+            .setDiscriminant(discriminants[i]);
       }
     }
     return new double[][]{
@@ -129,7 +129,7 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
     for (int i = 0; i < as.length; i++) {
       Equation key = new Equation(as[i], bs[i], cs[i]);
       EquationSolution equationSolution = solutions.get(key);
-      equationSolution.setDiscriminent(ds[i]);
+      equationSolution.setDiscriminant(ds[i]);
       equationSolution.addSolution(roots1[i]);
       equationSolution.addSolution(roots2[i]);
     }

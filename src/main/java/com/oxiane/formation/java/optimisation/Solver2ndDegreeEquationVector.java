@@ -75,7 +75,7 @@ public class Solver2ndDegreeEquationVector implements Solver2ndDegreeEquation {
       }
     }
     for (int i = 0; i < discriminants.length; i++) {
-      solutions[i].setDiscriminent(discriminants[i]);
+      solutions[i].setDiscriminant(discriminants[i]);
       if(discriminants[i] >= 0) {
         solutions[i].addSolution(roots1[i]);
       }

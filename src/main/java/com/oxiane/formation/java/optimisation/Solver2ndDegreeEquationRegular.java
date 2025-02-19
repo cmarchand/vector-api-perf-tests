@@ -5,18 +5,18 @@ import java.util.stream.Collectors;
 
 public class Solver2ndDegreeEquationRegular implements Solver2ndDegreeEquation {
 
-  public static EquationSolution solve(Equation equation) {
-    EquationSolution equationSolution = new EquationSolution(equation);
-    equationSolution.setDiscriminent(equation.b() * equation.b() - 4 * equation.a() * equation.c());
+  public static EquationSolution solve(Equation eq) {
+    EquationSolution equationSolution = new EquationSolution(eq);
+    equationSolution.setDiscriminant(eq.b() * eq.b() - 4 * eq.a() * eq.c());
     if (equationSolution.discriminent() >= 0) {
       double sqrt = Math.sqrt(equationSolution.discriminent());
       equationSolution.addSolution(
-          (-equation.b() - sqrt) /
-              (equation.a() * 2)
+          (-eq.b() - sqrt) /
+              (eq.a() * 2)
       );
       equationSolution.addSolution(
-          (-equation.b() + sqrt) /
-              (equation.a() * 2)
+          (-eq.b() + sqrt) /
+              (eq.a() * 2)
       );
     }
     return equationSolution;

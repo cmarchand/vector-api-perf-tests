@@ -4,7 +4,7 @@ import java.util.*;
 
 public class EquationSolution {
   final Equation equation;
-  double discriminent;
+  double discriminant;
   final SortedSet<Double> solutions;
 
   public EquationSolution(Equation equation) {
@@ -21,11 +21,11 @@ public class EquationSolution {
   }
 
   public double discriminent() {
-    return discriminent;
+    return discriminant;
   }
 
-  public void setDiscriminent(double discriminent) {
-    this.discriminent = discriminent;
+  public void setDiscriminant(double discriminant) {
+    this.discriminant = discriminant;
   }
 
   public void addSolution(double d) {
