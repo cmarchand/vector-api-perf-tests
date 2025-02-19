@@ -1,5 +1,6 @@
 package com.oxiane.formation.java.optimisation;
 
+import jdk.incubator.vector.DoubleVector;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,9 +24,9 @@ public class Solver2ndDegreeEquationVectorTest {
       EquationSolution solution = solutions.get(i);
       EquationSolution expectedSolution = expected.get(i);
       Assertions
-          .assertThat(expectedSolution.discriminent())
-          .isEqualTo(solution.discriminent());
-      Assertions.assertThat(solution.discriminent()).isEqualTo(expectedSolution.discriminent());
+          .assertThat(expectedSolution.discriminant())
+          .isEqualTo(solution.discriminant());
+      Assertions.assertThat(solution.discriminant()).isEqualTo(expectedSolution.discriminant());
     }
   }
 
@@ -58,7 +59,7 @@ public class Solver2ndDegreeEquationVectorTest {
     for (int i = 0; i < solutions.size(); i++) {
       EquationSolution solution = solutions.get(i);
       EquationSolution expectedSolution = expected.get(i);
-      if(solution.discriminent()>0) {
+      if(solution.discriminant()>0) {
         Assertions
             .assertThat(solution.solutions()).hasSize(2);
         Assertions
@@ -74,7 +75,7 @@ public class Solver2ndDegreeEquationVectorTest {
   @DisplayName("Testing 2 roots in the corrective loop")
   public void test4() {
     // Given
-    int nbElementsToHaveInList = 512 / (Double.BYTES * 8) + 1;
+    int nbElementsToHaveInList = DoubleVector.SPECIES_PREFERRED.length() + 1;
     ArrayList<Equation> equations = new ArrayList<>(nbElementsToHaveInList);
     equations.addAll(getEquations().subList(0, nbElementsToHaveInList - 1));
     equations.add(new Equation(2d, 5d, 2d));
@@ -83,10 +84,12 @@ public class Solver2ndDegreeEquationVectorTest {
     double r1 = -2d;
     double r2 = -0.5d;
     // When
-    EquationSolution lastEquationSolution = new Solver2ndDegreeEquationVector().solve(equations)
-                                                               .getLast();
+    EquationSolution lastEquationSolution =
+        new Solver2ndDegreeEquationVector()
+            .solve(equations)
+            .getLast();
     // Then
-    Assertions.assertThat(lastEquationSolution.discriminent()).isEqualTo(d);
+    Assertions.assertThat(lastEquationSolution.discriminant()).isEqualTo(d);
     Assertions.assertThat(lastEquationSolution.solutions()).hasSize(2);
     Assertions.assertThat(lastEquationSolution.solutions().first()).isEqualTo(r1);
     Assertions.assertThat(lastEquationSolution.solutions().last()).isEqualTo(r2);
@@ -95,7 +98,7 @@ public class Solver2ndDegreeEquationVectorTest {
   @DisplayName("Testing 2 roots in the corrective loop with (a+c)!=(ac)")
   public void test5() {
     // Given
-    int nbElementsToHaveInList = 512 / (Double.BYTES * 8) + 1;
+    int nbElementsToHaveInList = DoubleVector.SPECIES_PREFERRED.length() + 1;
     ArrayList<Equation> equations = new ArrayList<>(nbElementsToHaveInList);
     equations.addAll(getEquations().subList(0, nbElementsToHaveInList - 1));
     equations.add(new Equation(4d/3d, 5d, 3d));
@@ -107,7 +110,7 @@ public class Solver2ndDegreeEquationVectorTest {
     EquationSolution lastEquationSolution = new Solver2ndDegreeEquationVector().solve(equations)
                                                                .getLast();
     // Then
-    Assertions.assertThat(lastEquationSolution.discriminent()).isEqualTo(d);
+    Assertions.assertThat(lastEquationSolution.discriminant()).isEqualTo(d);
     Assertions.assertThat(lastEquationSolution.solutions()).hasSize(2);
     Assertions.assertThat(lastEquationSolution.solutions().first()).isEqualTo(r1);
     Assertions.assertThat(lastEquationSolution.solutions().last()).isEqualTo(r2);

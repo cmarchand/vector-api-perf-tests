@@ -51,7 +51,6 @@ public class Solver2ndDegreeEquationVector implements Solver2ndDegreeEquation {
           .intoArray(roots2, index, mask);
     }
     for(int index2 = index; index2 < as.length ; index2++) {
-      System.out.println("passage dans correctif de longueur");
       discriminants[index2] = bs[index2] * bs[index2] - (4 * as[index2] * cs[index2]);
       if(discriminants[index2] >= 0) {
         double sqrt = Math.sqrt(discriminants[index2]);

@@ -16,7 +16,7 @@ public class Solver2ndDegreeEquationRegularTest {
     // When
     EquationSolution actual = Solver2ndDegreeEquationRegular.solve(equation);
     // Then
-    Assertions.assertThat(actual.discriminent()).isEqualTo(expected);
+    Assertions.assertThat(actual.discriminant()).isEqualTo(expected);
   }
 
   @Test
@@ -40,7 +40,7 @@ public class Solver2ndDegreeEquationRegularTest {
     // When
     EquationSolution actual = Solver2ndDegreeEquationRegular.solve(equation);
     // Then
-    Assertions.assertThat(actual.discriminent()).isEqualTo(expected);
+    Assertions.assertThat(actual.discriminant()).isEqualTo(expected);
   }
   @Test
   @DisplayName("given (1, 7, 1) checks that solution has 2 roots")
@@ -77,7 +77,7 @@ public class Solver2ndDegreeEquationRegularTest {
     // When
     EquationSolution actual = Solver2ndDegreeEquationRegular.solve(equation);
     // Then
-    Assertions.assertThat(actual.discriminent()).isEqualTo(expected);
+    Assertions.assertThat(actual.discriminant()).isEqualTo(expected);
   }
   @Test
   @DisplayName("given (1, 4, 4) checks that solution has exactly 1 root")

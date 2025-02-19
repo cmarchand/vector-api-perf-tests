@@ -66,7 +66,6 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
       filteredCount += positiveOrNullDiscriminants.trueCount();
     }
     for (int index2 = index; index2 < as.length; index2++) {
-      System.out.println("passage dans correctif de longueur");
       double discriminant = bs[index2] * bs[index2] - (4 * as[index2] * cs[index2]);
       if (discriminant >= 0) {
         compressedAs[filteredCount] = as[index2];

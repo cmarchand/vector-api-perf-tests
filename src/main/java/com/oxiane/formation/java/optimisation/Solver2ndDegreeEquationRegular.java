@@ -8,8 +8,8 @@ public class Solver2ndDegreeEquationRegular implements Solver2ndDegreeEquation {
   public static EquationSolution solve(Equation eq) {
     EquationSolution equationSolution = new EquationSolution(eq);
     equationSolution.setDiscriminant(eq.b() * eq.b() - 4 * eq.a() * eq.c());
-    if (equationSolution.discriminent() >= 0) {
-      double sqrt = Math.sqrt(equationSolution.discriminent());
+    if (equationSolution.discriminant() >= 0) {
+      double sqrt = Math.sqrt(equationSolution.discriminant());
       equationSolution.addSolution(
           (-eq.b() - sqrt) /
               (eq.a() * 2)

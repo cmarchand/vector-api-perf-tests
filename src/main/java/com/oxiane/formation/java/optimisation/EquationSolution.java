@@ -20,7 +20,7 @@ public class EquationSolution {
     return Collections.unmodifiableSortedSet(solutions);
   }
 
-  public double discriminent() {
+  public double discriminant() {
     return discriminant;
   }
 
@@ -38,7 +38,7 @@ public class EquationSolution {
     builder.append(equation().a()).append("x² + ");
     builder.append(equation().b()).append("x + ");
     builder.append(equation().c()).append(" = 0\n");
-    builder.append("Δ = ").append(discriminent()).append("\n");
+    builder.append("Δ = ").append(discriminant()).append("\n");
     int i = 0;
     for (Double solution : solutions()) {
       builder

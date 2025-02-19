@@ -44,10 +44,10 @@ public class Solver2ndDegreeEquationVectorCompressTest {
       EquationSolution solution = actual.get(i);
       EquationSolution expectedSolution = expected.get(i);
       softly
-          .assertThat(solution.discriminent())
-          .isEqualTo(expectedSolution.discriminent());
-      softly.assertThat(solution.discriminent())
-            .isEqualTo(expectedSolution.discriminent());
+          .assertThat(solution.discriminant())
+          .isEqualTo(expectedSolution.discriminant());
+      softly.assertThat(solution.discriminant())
+            .isEqualTo(expectedSolution.discriminant());
     }
     softly.assertAll();
   }
@@ -66,7 +66,7 @@ public class Solver2ndDegreeEquationVectorCompressTest {
     SoftAssertions softly = new SoftAssertions();
     softly
         .assertThat(actual.getFirst()
-                          .discriminent())
+                          .discriminant())
         .isEqualTo(0d);
     softly
         .assertThat(actual
@@ -100,7 +100,7 @@ public class Solver2ndDegreeEquationVectorCompressTest {
     for (int i = 0; i < actual.size(); i++) {
       EquationSolution solution = actual.get(i);
       EquationSolution expectedSolution = expected.get(i);
-      if (solution.discriminent() > 0) {
+      if (solution.discriminant() > 0) {
         softly
             .assertThat(solution.solutions())
             .hasSize(2);
@@ -142,7 +142,7 @@ public class Solver2ndDegreeEquationVectorCompressTest {
             .solve(equations)
             .getLast();
     // Then
-    Assertions.assertThat(lastEquationSolution.discriminent())
+    Assertions.assertThat(lastEquationSolution.discriminant())
               .isEqualTo(d);
     Assertions.assertThat(lastEquationSolution.solutions())
               .hasSize(2);
@@ -173,7 +173,7 @@ public class Solver2ndDegreeEquationVectorCompressTest {
             .solve(equations)
             .getLast();
     // Then
-    Assertions.assertThat(lastEquationSolution.discriminent())
+    Assertions.assertThat(lastEquationSolution.discriminant())
               .isEqualTo(d);
     Assertions.assertThat(lastEquationSolution.solutions())
               .hasSize(2);
