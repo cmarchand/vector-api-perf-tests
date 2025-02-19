@@ -48,20 +48,20 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
       DoubleVector A = DoubleVector.fromArray(species, as, index);
       DoubleVector B = DoubleVector.fromArray(species, bs, index);
       DoubleVector C = DoubleVector.fromArray(species, cs, index);
-      DoubleVector DISCRIMINANT = B
+      DoubleVector D = B
           .mul(B)
           .sub(A
               .mul(4d)
               .mul(C));
-      DISCRIMINANT.intoArray(discriminants, index);
-      VectorMask<Double> positiveOrNullDiscriminants = DISCRIMINANT.compare(VectorOperators.GE, 0d);
+      D.intoArray(discriminants, index);
+      VectorMask<Double> positiveOrNullDiscriminants = D.compare(VectorOperators.GE, 0d);
       A.compress(positiveOrNullDiscriminants)
        .intoArray(compressedAs, filteredCount);
       B.compress(positiveOrNullDiscriminants)
        .intoArray(compressedBs, filteredCount);
       C.compress(positiveOrNullDiscriminants)
        .intoArray(compressedCs, filteredCount);
-      DISCRIMINANT.compress(positiveOrNullDiscriminants)
+      D.compress(positiveOrNullDiscriminants)
                   .intoArray(compressedDs, filteredCount);
       filteredCount += positiveOrNullDiscriminants.trueCount();
     }
