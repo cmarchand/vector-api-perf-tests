@@ -66,7 +66,7 @@ public class Solver2ndDegreeEquationVector implements Solver2ndDegreeEquation {
       discriminants[index2] = bs[index2] * bs[index2] - (4 * as[index2] * cs[index2]);
       if(discriminants[index2] == 0) {
         // cas des discriminants 0
-        roots1[index2] = (- bs[index2])/(2 + as[index2]);
+        roots1[index2] = (- bs[index2])/(2 * as[index2]);
       } else if(discriminants[index2] > 0) {
         // cas des discriminants > 0
         double sqrt = Math.sqrt(discriminants[index2]);

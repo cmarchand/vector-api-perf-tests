@@ -31,11 +31,9 @@
 
 package com.oxiane.formation.java.optimisation.benches;
 
-import com.oxiane.formation.java.optimisation.Equation;
-import com.oxiane.formation.java.optimisation.EquationSolution;
-import com.oxiane.formation.java.optimisation.Solver2ndDegreeEquationRegular;
-import com.oxiane.formation.java.optimisation.Solver2ndDegreeEquationVector;
+import com.oxiane.formation.java.optimisation.*;
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
@@ -48,13 +46,20 @@ public class Solving2ndDegreeEquations {
 
   @State(Scope.Benchmark)
   public static class InputData {
+    @Param({"1000"})
+    private int size;
+
     final List<Equation> equations;
     public InputData() {
-      equations = new ArrayList<>(20);
+      equations = new ArrayList<>(size);
       Random random = new Random(123456789l);
-      IntStream.range(0, 1000)
+      IntStream.range(0, size)
                .forEach(
-                   i -> equations.add(new Equation(random.nextDouble(-1000, 1000), random.nextDouble(-1000, 1000), random.nextDouble(-1000, 1000)))
+                   i -> equations.add(
+                       new Equation(
+                           random.nextDouble(-1000, 1000),
+                           random.nextDouble(-1000, 1000),
+                           random.nextDouble(-1000, 1000)))
                );
     }
     List<Equation> equations() { return equations; }
@@ -62,11 +67,21 @@ public class Solving2ndDegreeEquations {
 
     @Benchmark
     public List<EquationSolution> regular(InputData data) {
-      return new Solver2ndDegreeEquationRegular().solve(data.equations());
+      return
+          new Solver2ndDegreeEquationRegular()
+              .solve(data.equations());
     }
     @Benchmark
     public List<EquationSolution> vector(InputData data) {
-      return new Solver2ndDegreeEquationVector().solve(data.equations());
+      return
+          new Solver2ndDegreeEquationVector()
+              .solve(data.equations());
+    }
+    @Benchmark
+    public List<EquationSolution> vectorCompress(InputData data) {
+      return
+          new Solver2ndDegreeEquationVectorCompress()
+              .solve(data.equations());
     }
 
 }

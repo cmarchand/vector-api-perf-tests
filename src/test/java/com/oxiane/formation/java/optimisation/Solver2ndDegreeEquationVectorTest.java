@@ -43,8 +43,8 @@ public class Solver2ndDegreeEquationVectorTest {
         .assertThat(solutions.get(0).solutions())
         .hasSize(1);
     Assertions
-        .assertThat(solutions.get(0).solutions().get(0))
-        .isEqualTo(expected.get(0).solutions().get(0));
+        .assertThat(solutions.get(0).solutions().first())
+        .isEqualTo(expected.get(0).solutions().first());
   }
 
   @Test
@@ -63,11 +63,11 @@ public class Solver2ndDegreeEquationVectorTest {
         Assertions
             .assertThat(solution.solutions()).hasSize(2);
         Assertions
-            .assertThat(solution.solutions().get(0))
-            .isEqualTo(expectedSolution.solutions().get(0));
+            .assertThat(solution.solutions().first())
+            .isEqualTo(expectedSolution.solutions().first());
         Assertions
-            .assertThat(solution.solutions().get(1))
-            .isEqualTo(expectedSolution.solutions().get(1));
+            .assertThat(solution.solutions().last())
+            .isEqualTo(expectedSolution.solutions().last());
       }
     }
   }
@@ -89,8 +89,8 @@ public class Solver2ndDegreeEquationVectorTest {
     // Then
     Assertions.assertThat(lastEquationSolution.discriminent()).isEqualTo(d);
     Assertions.assertThat(lastEquationSolution.solutions()).hasSize(2);
-    Assertions.assertThat(lastEquationSolution.solutions().get(0)).isEqualTo(r1);
-    Assertions.assertThat(lastEquationSolution.solutions().get(1)).isEqualTo(r2);
+    Assertions.assertThat(lastEquationSolution.solutions().first()).isEqualTo(r1);
+    Assertions.assertThat(lastEquationSolution.solutions().last()).isEqualTo(r2);
   }
   @Test
   @DisplayName("Testing 2 roots in the corrective loop with (a+c)!=(ac)")
@@ -110,8 +110,8 @@ public class Solver2ndDegreeEquationVectorTest {
     // Then
     Assertions.assertThat(lastEquationSolution.discriminent()).isEqualTo(d);
     Assertions.assertThat(lastEquationSolution.solutions()).hasSize(2);
-    Assertions.assertThat(lastEquationSolution.solutions().get(0)).isEqualTo(r1);
-    Assertions.assertThat(lastEquationSolution.solutions().get(1)).isEqualTo(r2);
+    Assertions.assertThat(lastEquationSolution.solutions().first()).isEqualTo(r1);
+    Assertions.assertThat(lastEquationSolution.solutions().last()).isEqualTo(r2);
   }
 
   private static List<Equation> getEquations() {
