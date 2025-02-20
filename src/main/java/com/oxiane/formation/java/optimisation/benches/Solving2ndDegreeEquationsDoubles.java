@@ -37,8 +37,10 @@ import org.openjdk.jmh.annotations.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class Solving2ndDegreeEquationsDoubles {
 
   @State(Scope.Benchmark)
