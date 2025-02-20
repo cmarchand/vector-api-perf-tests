@@ -1,4 +1,4 @@
-package com.oxiane.formation.java.optimisation;
+package com.oxiane.formation.java.optimisation.doubles;
 
 import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.VectorMask;
@@ -11,28 +11,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEquation {
+public class Solver2NdDegreeEquationDoubleVectorCompress implements Solver2ndDegreeEquationDouble {
   @Override
-  public List<EquationSolution> solve(List<Equation> equations) {
+  public List<EquationSolutionDouble> solve(List<EquationDouble> equations) {
     VectorSpecies<Double> species = DoubleVector.SPECIES_PREFERRED;
     if (equations.size() < species.length())
-      return new Solver2ndDegreeEquationRegular().solve(equations);
-    Map<Equation, EquationSolution> solutions = prepareSolutions(equations);
+      return new Solver2NdDegreeEquationDoubleRegular().solve(equations);
+    Map<EquationDouble, EquationSolutionDouble> solutions = prepareSolutions(equations);
     double[][] equationsWithDiscriminants = removeEquationsWithoutRealSolutions(equations, species, solutions);
     calculateRoots(equationsWithDiscriminants, species, solutions);
     return generateListInOriginalOrder(equations, solutions);
   }
 
-  private Map<Equation, EquationSolution> prepareSolutions(List<Equation> equations) {
-    ConcurrentHashMap<Equation, EquationSolution> solutions = new ConcurrentHashMap<>();
-    for (Equation equation : equations) {
-      solutions.put(equation, new EquationSolution(equation));
+  private Map<EquationDouble, EquationSolutionDouble> prepareSolutions(List<EquationDouble> equations) {
+    ConcurrentHashMap<EquationDouble, EquationSolutionDouble> solutions = new ConcurrentHashMap<>();
+    for (EquationDouble equationDouble : equations) {
+      solutions.put(equationDouble, new EquationSolutionDouble(equationDouble));
     }
     return solutions;
   }
 
-  private double[][] removeEquationsWithoutRealSolutions(List<Equation> equations, VectorSpecies<Double> species,
-                                                         Map<Equation, EquationSolution> solutions) {
+  private double[][] removeEquationsWithoutRealSolutions(List<EquationDouble> equations, VectorSpecies<Double> species,
+                                                         Map<EquationDouble, EquationSolutionDouble> solutions) {
     EquationArrays arrays = equationsIntoArrays(equations);
     double[] as = arrays.as();
     double[] bs = arrays.bs();
@@ -79,7 +79,7 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
     for (int i = 0; i < as.length; i++) {
       if (discriminants[i] < 0) {
         solutions
-            .get(new Equation(as[i], bs[i], cs[i]))
+            .get(new EquationDouble(as[i], bs[i], cs[i]))
             .setDiscriminant(discriminants[i]);
       }
     }
@@ -94,7 +94,7 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
   private static void calculateRoots(
       double[][] equationsWithDiscriminants,
       VectorSpecies<Double> species,
-      Map<Equation, EquationSolution> solutions) {
+      Map<EquationDouble, EquationSolutionDouble> solutions) {
     double[] as = equationsWithDiscriminants[0];
     double[] bs = equationsWithDiscriminants[1];
     double[] cs = equationsWithDiscriminants[2];
@@ -125,20 +125,20 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
       roots2[index2] = (-bs[index2] + sqrt) / denominator;
     }
     for (int i = 0; i < as.length; i++) {
-      Equation key = new Equation(as[i], bs[i], cs[i]);
-      EquationSolution equationSolution = solutions.get(key);
-      equationSolution.setDiscriminant(ds[i]);
-      equationSolution.addSolution(roots1[i]);
-      equationSolution.addSolution(roots2[i]);
+      EquationDouble key = new EquationDouble(as[i], bs[i], cs[i]);
+      EquationSolutionDouble equationSolutionDouble = solutions.get(key);
+      equationSolutionDouble.setDiscriminant(ds[i]);
+      equationSolutionDouble.addSolution(roots1[i]);
+      equationSolutionDouble.addSolution(roots2[i]);
     }
   }
 
-  private static List<EquationSolution> generateListInOriginalOrder(
-      List<Equation> equations,
-      Map<Equation, EquationSolution> solutions) {
-    List<EquationSolution> ret = new ArrayList<>(equations.size());
-    for (Equation equation : equations) {
-      ret.add(solutions.get(equation));
+  private static List<EquationSolutionDouble> generateListInOriginalOrder(
+      List<EquationDouble> equationDoubles,
+      Map<EquationDouble, EquationSolutionDouble> solutions) {
+    List<EquationSolutionDouble> ret = new ArrayList<>(equationDoubles.size());
+    for (EquationDouble equationDouble : equationDoubles) {
+      ret.add(solutions.get(equationDouble));
     }
     return ret;
   }
@@ -147,15 +147,15 @@ public class Solver2ndDegreeEquationVectorCompress implements Solver2ndDegreeEqu
     return Arrays.copyOf(source, size);
   }
 
-  private EquationArrays equationsIntoArrays(List<Equation> equations) {
-    double[] as = new double[equations.size()];
-    double[] bs = new double[equations.size()];
-    double[] cs = new double[equations.size()];
-    for (int i = 0; i < equations.size(); i++) {
-      Equation equation = equations.get(i);
-      as[i] = equation.a();
-      bs[i] = equation.b();
-      cs[i] = equation.c();
+  private EquationArrays equationsIntoArrays(List<EquationDouble> equationDoubles) {
+    double[] as = new double[equationDoubles.size()];
+    double[] bs = new double[equationDoubles.size()];
+    double[] cs = new double[equationDoubles.size()];
+    for (int i = 0; i < equationDoubles.size(); i++) {
+      EquationDouble equationDouble = equationDoubles.get(i);
+      as[i] = equationDouble.a();
+      bs[i] = equationDouble.b();
+      cs[i] = equationDouble.c();
     }
     return new EquationArrays(as, bs, cs);
   }

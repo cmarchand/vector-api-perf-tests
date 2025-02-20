@@ -1,22 +1,24 @@
-package com.oxiane.formation.java.optimisation;
+package com.oxiane.formation.java.optimisation.floats;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-public class EquationSolution {
-  final Equation equation;
-  double discriminant;
-  final SortedSet<Double> solutions;
+public class EquationSolutionFloat {
+  final EquationFloat equationDouble;
+  float discriminant;
+  final SortedSet<Float> solutions;
 
-  public EquationSolution(Equation equation) {
-    this.equation = equation;
+  public EquationSolutionFloat(EquationFloat equationDouble) {
+    this.equationDouble = equationDouble;
     this.solutions = new TreeSet<>();
   }
 
-  public Equation equation() {
-    return equation;
+  public EquationFloat equation() {
+    return equationDouble;
   }
 
-  public SortedSet<Double> solutions() {
+  public SortedSet<Float> solutions() {
     return Collections.unmodifiableSortedSet(solutions);
   }
 
@@ -24,11 +26,11 @@ public class EquationSolution {
     return discriminant;
   }
 
-  public void setDiscriminant(double discriminant) {
+  public void setDiscriminant(float discriminant) {
     this.discriminant = discriminant;
   }
 
-  public void addSolution(double d) {
+  public void addSolution(float d) {
     solutions.add(d);
   }
 
@@ -40,7 +42,7 @@ public class EquationSolution {
     builder.append(equation().c()).append(" = 0\n");
     builder.append("Δ = ").append(discriminant()).append("\n");
     int i = 0;
-    for (Double solution : solutions()) {
+    for (Float solution : solutions()) {
       builder
           .append("R")
           .append(i++)

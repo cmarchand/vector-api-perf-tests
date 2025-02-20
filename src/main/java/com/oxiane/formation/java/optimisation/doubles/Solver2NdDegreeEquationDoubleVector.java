@@ -1,4 +1,4 @@
-package com.oxiane.formation.java.optimisation;
+package com.oxiane.formation.java.optimisation.doubles;
 
 import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.VectorMask;
@@ -7,22 +7,22 @@ import jdk.incubator.vector.VectorSpecies;
 
 import java.util.List;
 
-public class Solver2ndDegreeEquationVector implements Solver2ndDegreeEquation {
+public class Solver2NdDegreeEquationDoubleVector implements Solver2ndDegreeEquationDouble {
 
-  public List<EquationSolution> solve(List<Equation> equations) {
+  public List<EquationSolutionDouble> solve(List<EquationDouble> equations) {
     VectorSpecies<Double> species = DoubleVector.SPECIES_PREFERRED;
     if(equations.size() < species.length())
-      return new Solver2ndDegreeEquationRegular().solve(equations);
+      return new Solver2NdDegreeEquationDoubleRegular().solve(equations);
     double[] as = new double[equations.size()];
     double[] bs = new double[equations.size()];
     double[] cs = new double[equations.size()];
-    EquationSolution[] solutions = new EquationSolution[equations.size()];
+    EquationSolutionDouble[] solutions = new EquationSolutionDouble[equations.size()];
     for (int i = 0; i < equations.size(); i++) {
-      Equation eq = equations.get(i);
+      EquationDouble eq = equations.get(i);
       as[i] = eq.a();
       bs[i] = eq.b();
       cs[i] = eq.c();
-      solutions[i] = new EquationSolution(eq);
+      solutions[i] = new EquationSolutionDouble(eq);
     }
     double[] discriminants = new double[as.length];
     double[] roots1 = new double[as.length];

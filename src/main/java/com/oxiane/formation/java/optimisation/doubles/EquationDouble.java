@@ -1,4 +1,4 @@
-package com.oxiane.formation.java.optimisation;
+package com.oxiane.formation.java.optimisation.doubles;
 
 /**
  * Models a 2nd degree quadratic equation.
@@ -11,5 +11,5 @@ package com.oxiane.formation.java.optimisation;
  * @param b x coefficient
  * @param c constant
  */
-public record Equation(double a, double b, double c) {
+public record EquationDouble(double a, double b, double c) {
 }

@@ -1,12 +1,11 @@
-package com.oxiane.formation.java.optimisation;
+package com.oxiane.formation.java.optimisation.doubles;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Solver2ndDegreeEquationRegular implements Solver2ndDegreeEquation {
+public class Solver2NdDegreeEquationDoubleRegular implements Solver2ndDegreeEquationDouble {
 
-  public static EquationSolution solve(Equation eq) {
-    EquationSolution equationSolution = new EquationSolution(eq);
+  public static EquationSolutionDouble solve(EquationDouble eq) {
+    EquationSolutionDouble equationSolution = new EquationSolutionDouble(eq);
     equationSolution.setDiscriminant(eq.b() * eq.b() - 4 * eq.a() * eq.c());
     if (equationSolution.discriminant() >= 0) {
       double sqrt = Math.sqrt(equationSolution.discriminant());
@@ -22,10 +21,10 @@ public class Solver2ndDegreeEquationRegular implements Solver2ndDegreeEquation {
     return equationSolution;
   }
 
-  public List<EquationSolution> solve(List<Equation> equations) {
+  public List<EquationSolutionDouble> solve(List<EquationDouble> equations) {
     return equations
         .stream()
-        .map(Solver2ndDegreeEquationRegular::solve)
-        .collect(Collectors.toList());
+        .map(Solver2NdDegreeEquationDoubleRegular::solve)
+        .toList();
   }
 }

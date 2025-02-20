@@ -31,22 +31,25 @@
 
 package com.oxiane.formation.java.optimisation.benches;
 
-import com.oxiane.formation.java.optimisation.*;
-import org.openjdk.jmh.annotations.*;
+import com.oxiane.formation.java.optimisation.floats.*;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Param;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class Solving2ndDegreeEquations {
+public class Solving2ndDegreeEquationsFloats {
 
   @State(Scope.Benchmark)
   public static class InputData {
     @Param({"1000"})
     private int size;
 
-    final List<Equation> equations;
+    final List<EquationFloat> equations;
 
     public InputData() {
       equations = new ArrayList<>(size);
@@ -54,35 +57,35 @@ public class Solving2ndDegreeEquations {
       IntStream.range(0, size)
                .forEach(
                    i -> equations.add(
-                       new Equation(
-                           random.nextDouble(-1000, 1000),
-                           random.nextDouble(-1000, 1000),
-                           random.nextDouble(-1000, 1000)))
+                       new EquationFloat(
+                           random.nextFloat(-1000, 1000),
+                           random.nextFloat(-1000, 1000),
+                           random.nextFloat(-1000, 1000)))
                );
     }
-    List<Equation> equations() {
+    List<EquationFloat> equations() {
       return equations;
     }
   }
 
   @Benchmark
-  public List<EquationSolution> regular(InputData data) {
+  public List<EquationSolutionFloat> regular(InputData data) {
     return
-        new Solver2ndDegreeEquationRegular()
+        new Solver2NdDegreeEquationFloatRegular()
             .solve(data.equations());
   }
 
   @Benchmark
-  public List<EquationSolution> vector(InputData data) {
+  public List<EquationSolutionFloat> vector(InputData data) {
     return
-        new Solver2ndDegreeEquationVector()
+        new Solver2NdDegreeEquationFloatVector()
             .solve(data.equations());
   }
 
   @Benchmark
-  public List<EquationSolution> vectorCompress(InputData data) {
+  public List<EquationSolutionFloat> vectorCompress(InputData data) {
     return
-        new Solver2ndDegreeEquationVectorCompress()
+        new Solver2NdDegreeEquationFloatVectorCompress()
             .solve(data.equations());
   }
 
