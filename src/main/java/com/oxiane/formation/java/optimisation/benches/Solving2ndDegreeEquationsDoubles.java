@@ -45,7 +45,7 @@ public class Solving2ndDegreeEquationsDoubles {
 
   @State(Scope.Benchmark)
   public static class InputData {
-    @Param({"1000"})
+    @Param({"100", "1000", "10000"})
     private int size;
 
     final List<EquationDouble> equations;

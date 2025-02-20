@@ -45,7 +45,7 @@ public class Solving2ndDegreeEquationsFloats {
 
   @State(Scope.Benchmark)
   public static class InputData {
-    @Param({"1000"})
+    @Param({"100","1000","10000"})
     private int size;
 
     final List<EquationFloat> equations;
